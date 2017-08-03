@@ -1,13 +1,19 @@
 TARGETEXT = exe
 TARGET = libext.$(TARGETEXT)
-CFLAGS = 
-INCLUDES = ../include
+CXXFLAGS = -Wall -Werror -std=c++11 -g -framework OpenGL
+INCLUDES = $(CURDIR)/../include
 OUTDIR = ../../bin/
 
-CFLAGS += -I $(INCLUDES)
+SOURCES = \
+	handle.cpp \
+	graphics/graphics_device.cpp \
+	graphics/gl/graphics_device.cpp \
+	test.cpp
+
+CXXFLAGS += -I $(INCLUDES)
 
 all: $(TARGET)
 
-$(TARGET): test.cpp
+$(TARGET): $(SOURCES)
 	mkdir -p $(OUTDIR)
-	$(CXX) $(CFLAGS) $? $(LDFLAGS) -o $(OUTDIR)$@
+	$(CXX) $(CXXFLAGS) $? $(LDFLAGS) -o $(OUTDIR)$@
