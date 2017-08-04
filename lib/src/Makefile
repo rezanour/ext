@@ -1,8 +1,17 @@
+ifeq ($(OS),Windows_NT)
+override CXX = clang
+CFLAGS += -DWIN32
+OUTDIR = ..\..\bin
+MKDIRCMD = mkdir $(OUTDIR)
+else
+OUTDIR = ../../bin
+MKDIRCMD = mkdir -p $(OUTDIR)
+endif
+
 TARGETEXT = exe
 TARGET = libext.$(TARGETEXT)
-CXXFLAGS = -Wall -Werror -std=c++11 -g -framework OpenGL
+CFLAGS += -Wall -Werror -std=c++14 -g -framework OpenGL
 INCLUDES = $(CURDIR)/../include
-OUTDIR = ../../bin/
 
 SOURCES = \
 	handle.cpp \
@@ -10,10 +19,12 @@ SOURCES = \
 	graphics/gl/graphics_device.cpp \
 	test.cpp
 
-CXXFLAGS += -I $(INCLUDES)
+CFLAGS += -I $(INCLUDES)
 
 all: $(TARGET)
 
+$(OUTDIR):
+	$(MKDIRCMD)
+
 $(TARGET): $(SOURCES)
-	mkdir -p $(OUTDIR)
-	$(CXX) $(CXXFLAGS) $? $(LDFLAGS) -o $(OUTDIR)$@
+	$(CXX) $(CFLAGS) $? $(LDFLAGS) -o $(OUTDIR)\$@
