@@ -1,7 +1,6 @@
 #include <ext_handle.h>
 #include <vector>
 #include <mutex>
-#include <assert.h>
 
 #include "handle_p.h"
 

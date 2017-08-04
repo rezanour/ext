@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <graphics/graphics_device.h>
 #include "../handle_p.h"
 
